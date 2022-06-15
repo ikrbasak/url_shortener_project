@@ -149,3 +149,19 @@ CSP_STYLE_SRC = ["'self'", "https://fonts.googleapis.com/", ]
 CSP_IMG_SRC = ["'self'", ]
 CSP_PREFETCH_SRC = ["'self'", 'https://cdn.jsdelivr.net/', ]
 CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com/", ]
+
+# CSRF
+CSRF_COOKIE_AGE = 86400
+CSRF_COOKIE_SECURE = True
+
+# Data/File Upload
+DATA_UPLOAD_MAX_MEMORY_SIZE = 200000
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10
+FILE_UPLOAD_MAX_MEMORY_SIZE = 200000
+
+# Security
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = 60
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
