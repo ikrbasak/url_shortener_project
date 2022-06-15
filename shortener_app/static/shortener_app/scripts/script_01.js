@@ -23,7 +23,7 @@ $(
                 },
                 data: $(this).serialize(),
                 success: (data, textStatus, jqXHR) => {
-                    navigator.clipboard.writeText('http://127.0.0.1:8000/' + data.key);
+                    navigator.clipboard.writeText('https://webhost1.pythonanywhere.com/' + data.key);
                     notification.addClass('success');
                     notification.removeClass('error');
                     notification.text('Short URL copied to clipboard');
