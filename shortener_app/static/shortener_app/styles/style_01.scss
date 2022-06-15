@@ -33,8 +33,16 @@
     }
 }
 
+.small {
+    font-size: 0.8em;
+}
+
 .large {
     font-size: 1.2em;
+}
+
+.hide {
+    display: none;
 }
 
 label {
@@ -53,6 +61,26 @@ footer {
 header {
     @extend .container;
     padding-block: 0.4rem;
+}
+
+#notification {
+    @extend .container;
+    display: block;
+    padding: 0.4em;
+    border-radius: 0.4em;
+    font-weight: bold;
+
+    &.success {
+        background: transparentize(mediumspringgreen, 0.99);
+        border: 2px solid transparentize(mediumspringgreen, 0.7);
+        color: darkgreen;
+    }
+
+    &.error {
+        background: transparentize(red, 0.99);
+        border: 2px solid transparentize(red, 0.7);
+        color: darkred;
+    }
 }
 
 #title {

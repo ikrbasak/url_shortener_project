@@ -9,34 +9,42 @@
   box-sizing: border-box;
 }
 
-.container, main, header, footer {
+.container, main, #notification, header, footer {
   width: 100%;
   padding: 10px;
   margin: 0 auto;
 }
 @media screen and (min-width: 400px) {
-  .container, main, header, footer {
+  .container, main, #notification, header, footer {
     max-width: 380px;
   }
 }
 @media screen and (min-width: 800px) {
-  .container, main, header, footer {
+  .container, main, #notification, header, footer {
     max-width: 760px;
   }
 }
 @media screen and (min-width: 1200px) {
-  .container, main, header, footer {
+  .container, main, #notification, header, footer {
     max-width: 1120px;
   }
 }
 @media screen and (min-width: 1400px) {
-  .container, main, header, footer {
+  .container, main, #notification, header, footer {
     max-width: 1300px;
   }
 }
 
+.small {
+  font-size: 0.8em;
+}
+
 .large {
   font-size: 1.2em;
+}
+
+.hide {
+  display: none;
 }
 
 label {
@@ -50,6 +58,23 @@ footer a {
 
 header {
   padding-block: 0.4rem;
+}
+
+#notification {
+  display: block;
+  padding: 0.4em;
+  border-radius: 0.4em;
+  font-weight: bold;
+}
+#notification.success {
+  background: rgba(0, 250, 154, 0.01);
+  border: 2px solid rgba(0, 250, 154, 0.3);
+  color: darkgreen;
+}
+#notification.error {
+  background: rgba(255, 0, 0, 0.01);
+  border: 2px solid rgba(255, 0, 0, 0.3);
+  color: darkred;
 }
 
 #title {

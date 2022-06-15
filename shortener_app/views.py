@@ -111,6 +111,8 @@ def url_submit_view(request):
 
             return JsonResponse({
                 "error": False,
+                "key": key,
+                "url": url,
             }, status=HTTPStatus.OK)
 
         else:

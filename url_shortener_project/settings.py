@@ -52,6 +52,8 @@ INSTALLED_APPS = [
 create_dirs(BASE_DIR, USER_APPS)
 
 MIDDLEWARE = [
+    # added middleware
+    'csp.middleware.CSPMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,8 +61,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # added middleware
-    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'url_shortener_project.urls'
@@ -76,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'csp.context_processors.nonce',
             ],
         },
     },
@@ -140,35 +141,11 @@ MEDIA_ROOT = 'media_root'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Content Security Policy (https://django-csp.readthedocs.io/en/latest/configuration.html)
+CSP_INCLUDE_NONCE_IN = ['default-src', 'script-src', 'style-src']
+
 CSP_DEFAULT_SRC = ["'self'", ]
-
-CSP_SCRIPT_SRC = CSP_DEFAULT_SRC + ['https://cdn.jsdelivr.net/']
-CSP_SCRIPT_SRC_ATTR = CSP_DEFAULT_SRC + CSP_SCRIPT_SRC + []
-CSP_SCRIPT_SRC_ELEM = CSP_DEFAULT_SRC + CSP_SCRIPT_SRC + []
-
-CSP_PREFETCH_SRC = CSP_DEFAULT_SRC + CSP_SCRIPT_SRC_ATTR + CSP_SCRIPT_SRC_ELEM
-
-CSP_IMG_SRC = CSP_DEFAULT_SRC + []
-CSP_OBJECT_SRC = CSP_DEFAULT_SRC + []
-
-CSP_PREFETCH_SRC += CSP_IMG_SRC + CSP_OBJECT_SRC
-
-CSP_MEDIA_SRC = CSP_DEFAULT_SRC + []
-CSP_FRAME_SRC = CSP_DEFAULT_SRC + []
-CSP_FONT_SRC = CSP_DEFAULT_SRC + ['https://fonts.gstatic.com/']
-CSP_CONNECT_SRC = CSP_DEFAULT_SRC + []
-
-CSP_PREFETCH_SRC += CSP_MEDIA_SRC + CSP_FRAME_SRC + CSP_FONT_SRC + CSP_CONNECT_SRC
-
-CSP_STYLE_SRC = CSP_DEFAULT_SRC + ['https://cdn.jsdelivr.net/', 'https://fonts.googleapis.com/']
-CSP_STYLE_SRC_ATTR = CSP_STYLE_SRC + CSP_DEFAULT_SRC + []
-CSP_STYLE_SRC_ELEM = CSP_STYLE_SRC + CSP_DEFAULT_SRC + []
-
-CSP_BASE_URI = CSP_DEFAULT_SRC + []
-CSP_CHILD_SRC = CSP_DEFAULT_SRC
-CSP_FRAME_ANCESTORS = CSP_DEFAULT_SRC
-CSP_FORM_ACTION = CSP_DEFAULT_SRC
-CSP_MANIFEST_SRC = CSP_DEFAULT_SRC
-CSP_WORKER_SRC = CSP_DEFAULT_SRC
-
-CSP_INCLUDE_NONCE_IN = ['script-src', 'style-src']
+CSP_SCRIPT_SRC = ["'self'", 'https://cdn.jsdelivr.net/', ]
+CSP_STYLE_SRC = ["'self'", "https://fonts.googleapis.com/", ]
+CSP_IMG_SRC = ["'self'", ]
+CSP_PREFETCH_SRC = ["'self'", 'https://cdn.jsdelivr.net/', ]
+CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com/", ]
