@@ -14,7 +14,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from .setup import create_dirs, get_static_dirs
+from .setup import create_dirs, get_static_dirs, get_template_dirs
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,6 +79,7 @@ TEMPLATES = [
         },
     },
 ]
+TEMPLATES_DIR = get_template_dirs(USER_APPS)
 
 WSGI_APPLICATION = 'url_shortener_project.wsgi.application'
 

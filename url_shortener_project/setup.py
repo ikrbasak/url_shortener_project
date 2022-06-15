@@ -17,3 +17,10 @@ def get_static_dirs(apps: list[str]) -> list[str]:
     for app in apps:
         result_list.append(f"{app}/static/{app}")
     return result_list
+
+
+def get_template_dirs(apps: list[str]) -> list[str]:
+    result_list = []
+    for app in apps:
+        result_list.append(f"{app}/templates/{app}")
+    return result_list
