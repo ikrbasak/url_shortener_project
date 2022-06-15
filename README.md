@@ -3,4 +3,4 @@ A simple URL Shortening Application built with Django. This project is solely fo
 
 Suggestions for improvement are always welcomed.
 
-You can use the application [here](#to-be-added-later).
+You can use the application [here](https://webhost1.pythonanywhere.com/).
