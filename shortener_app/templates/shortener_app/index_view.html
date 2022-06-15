@@ -1,17 +1,52 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ default.project.name }}</title>
-</head>
-<body>
-<form action="{% url 'shortener_app.url_submit_view' %}" method="post">
-    {% csrf_token %}
-    {{ url_form.as_ul }}
-    <input type="submit" value="Submit">
-</form>
-</body>
-</html>
+{% spaceless %}
+    {% load static %}
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{{ default.project.name }}</title>
+        {# ============================ prefetch ============================ #}
+        <link rel="prefetch" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+        {# fonts #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+              rel="stylesheet">
+        {# ============================ scripts ============================ #}
+        {#  jQuery  #}
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        {#  styles  #}
+        <link rel="stylesheet" href="{% static 'shortener_app/styles/style_01.min.css' %}">
+    </head>
+    <body>
+    <div id="notification"></div>
+    <header>
+        <h1 id="title"><a href="#">{{ default.project.name }}</a></h1>
+        <p class="large" id="sub-title">Compress your links easily</p>
+    </header>
+    <main>
+        <form action="{% url 'shortener_app.url_submit_view' %}" id="url_form" method="post">
+            {% csrf_token %}
+            <div id="url_input_div">
+                <label for="{{ url_form.url_field.id_for_label }}"
+                       id="url_input_label">{{ url_form.url_field.label }}</label>
+                {{ url_form.url_field }}
+            </div>
+            <div id="key_input_div">
+                <label for="{{ url_form.key_field.id_for_label }}"
+                       id="key_input_label">{{ url_form.key_field.label }}</label>
+                {{ url_form.key_field }}
+            </div>
+            <input type="submit" id="url_submit" value="SUBMIT">
+        </form>
+    </main>
+    <footer>
+        Find this project on <a href="{{ default.project.github }}">Github</a>
+    </footer>
+    {# ============================ scripts ============================ #}
+    </body>
+    </html>
+{% endspaceless %}

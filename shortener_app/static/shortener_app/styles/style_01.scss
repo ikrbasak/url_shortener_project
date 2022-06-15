@@ -1,0 +1,152 @@
+@mixin min-width($f) {
+    @media screen and (min-width: $f*1px) {
+        @content;
+    }
+}
+
+:root {
+    font-family: 'Charis SIL', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    @include min-width(400) {
+        max-width: 380px;
+    }
+    @include min-width(800) {
+        max-width: 760px;
+    }
+    @include min-width(1200) {
+        max-width: 1120px;
+    }
+    @include min-width(1400) {
+        max-width: 1300px;
+    }
+}
+
+.large {
+    font-size: 1.2em;
+}
+
+label {
+    display: block;
+    font-size: 1.2em;
+}
+
+footer {
+    @extend .container;
+
+    a {
+        color: crimson;
+    }
+}
+
+header {
+    @extend .container;
+    padding-block: 0.4rem;
+}
+
+#title {
+    display: inline-block;
+
+    &, * {
+        color: midnightblue;
+        text-decoration: none;
+    }
+
+    &:before {
+        content: '';
+        width: 0;
+        display: inline-block;
+
+        transition: all 0.3s ease;
+    }
+
+    &:hover {
+        &:before {
+            width: 10px;
+        }
+    }
+}
+
+main {
+    @extend .container;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-block: 1rem;
+
+    min-height: calc(100vh - 15rem);
+
+}
+
+#url_form {
+    max-width: 340px;
+    width: 100%;
+
+
+    > div {
+        margin: 0.2em 0;
+    }
+}
+
+
+input {
+    width: 100%;
+    outline: none;
+
+    padding: 6px;
+    font-family: 'Charis SIL', serif;
+    font-size: 1.1em;
+
+    border: 2px solid darkslateblue;
+    border-radius: 4px;
+
+    &:focus {
+        background: transparentize(darkslateblue, 0.9);
+        outline: 2px solid darken(darkslateblue, 0.4);
+    }
+}
+
+
+#url_submit {
+    margin: 0.4em auto;
+    font-size: 1.2rem;
+
+    border: none;
+    background: darken(darkslateblue, 0.4);
+    color: #fff;
+
+    cursor: pointer;
+
+    &:focus {
+        outline: 2px solid #000;
+        outline-offset: 2px;
+    }
+
+    &:disabled {
+        background: transparentize(darkslateblue, 0.9);
+    }
+}
+
+a {
+    color: currentColor;
+    text-decoration: none;
+}
+
+a:hover {
+    color: midnightblue;
+    text-decoration: underline;
+}
