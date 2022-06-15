@@ -1,10 +1,10 @@
 import logging
 from http import HTTPStatus
 
-from django.http import JsonResponse
-from django.shortcuts import render
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect
 from django.views.decorators.gzip import gzip_page
-from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from ratelimit.decorators import ratelimit
 
 import shortener_app.settings as app_settings
@@ -83,7 +83,7 @@ def url_submit_view(request):
                     "error": True,
                     "error_desc": message,
                     "error_code": code
-                }, status=HTTPStatus.NOT_ACCEPTABLE)
+                }, status=HTTPStatus.BAD_REQUEST)
 
             # If no key provided, create a key
             if key == '':
@@ -96,7 +96,7 @@ def url_submit_view(request):
                         "error": True,
                         "error_desc": message,
                         "error_code": code
-                    }, status=HTTPStatus.NOT_ACCEPTABLE)
+                    }, status=HTTPStatus.BAD_REQUEST)
 
             try:
                 save_url = UrlSaveModel(key=key, url=url)
@@ -118,4 +118,37 @@ def url_submit_view(request):
                 "error": True,
                 "error_desc": "Provided invalid form data",
                 "error_code": "invalid_form"
-            }, status=HTTPStatus.NOT_ACCEPTABLE)
+            }, status=HTTPStatus.BAD_REQUEST)
+
+
+@require_http_methods(['POST', 'GET'])
+def url_query_view(request, key):
+    saved_url = UrlSaveModel.objects.filter(key__exact=key)
+    l = len(saved_url)
+    url = None
+
+    if l > 0:
+        saved_url = saved_url[0]
+        url = saved_url.url
+    else:
+        pass
+
+    if request.method == 'POST':
+        if url is None:
+            return JsonResponse({
+                'error': True,
+                'error_desc': 'The URL with provided key not found',
+                'error_code': 'url_not_found'
+            }, status=HTTPStatus.NOT_FOUND)
+        else:
+            return JsonResponse({
+                'error': False,
+                'key': key,
+                'url': url,
+            }, status=HTTPStatus.OK)
+
+    elif request.method == 'GET':
+        if url is None:
+            return HttpResponse('Error', status=HTTPStatus.NOT_FOUND)
+        else:
+            return redirect(url, status=HTTPStatus.OK)

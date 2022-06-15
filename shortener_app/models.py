@@ -105,6 +105,7 @@ class UrlSaveModel(TimeStampedModel):
     class Meta:
         verbose_name = 'Saved URL'
         verbose_name_plural = 'Saved URLs'
+        ordering = ('key', 'url', 'created', 'modified')
 
     def __str__(self):
         return self.key
