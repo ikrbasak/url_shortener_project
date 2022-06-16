@@ -1,7 +1,7 @@
 import logging
 from http import HTTPStatus
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect
 from django.views.decorators.gzip import gzip_page
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
@@ -124,6 +124,7 @@ def url_submit_view(request):
 
 
 @require_http_methods(['POST', 'GET'])
+@gzip_page
 def url_query_view(request, key):
     saved_url = UrlSaveModel.objects.filter(key__exact=key)
     l = len(saved_url)
@@ -151,6 +152,6 @@ def url_query_view(request, key):
 
     elif request.method == 'GET':
         if url is None:
-            return HttpResponse('Error', status=HTTPStatus.NOT_FOUND)
+            return Http404()
         else:
             return redirect(url, status=HTTPStatus.OK)

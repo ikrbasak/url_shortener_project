@@ -29,10 +29,45 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'webhost1.pythonanywhere.com']
+if DEBUG is True:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+    # CSRF
+    CSRF_COOKIE_AGE = 8640000
+    CSRF_COOKIE_SECURE = False
+
+    # Data/File Upload
+    DATA_UPLOAD_MAX_MEMORY_SIZE = 200000000
+    DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+    FILE_UPLOAD_MAX_MEMORY_SIZE = 200000000
+
+    # Security
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    SECURE_HSTS_SECONDS = None
+    SECURE_HSTS_PRELOAD = False
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+
+else:
+    ALLOWED_HOSTS = ['webhost1.pythonanywhere.com']
+
+    # CSRF
+    CSRF_COOKIE_AGE = 86400
+    CSRF_COOKIE_SECURE = True
+
+    # Data/File Upload
+    DATA_UPLOAD_MAX_MEMORY_SIZE = 200000
+    DATA_UPLOAD_MAX_NUMBER_FIELDS = 10
+    FILE_UPLOAD_MAX_MEMORY_SIZE = 200000
+
+    # Security
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 60
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # Application definition
 USER_APPS = [
@@ -149,19 +184,3 @@ CSP_STYLE_SRC = ["'self'", "https://fonts.googleapis.com/", ]
 CSP_IMG_SRC = ["'self'", ]
 CSP_PREFETCH_SRC = ["'self'", 'https://cdn.jsdelivr.net/', ]
 CSP_FONT_SRC = ["'self'", "https://fonts.gstatic.com/", ]
-
-# CSRF
-CSRF_COOKIE_AGE = 86400
-CSRF_COOKIE_SECURE = True
-
-# Data/File Upload
-DATA_UPLOAD_MAX_MEMORY_SIZE = 200000
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 10
-FILE_UPLOAD_MAX_MEMORY_SIZE = 200000
-
-# Security
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 60
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
