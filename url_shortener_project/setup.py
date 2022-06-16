@@ -6,6 +6,7 @@ def create_dirs(base: Path, apps: list[str]) -> None:
     makedirs(base / 'database', exist_ok=True)
     makedirs(base / 'static', exist_ok=True)
     makedirs(base / 'media', exist_ok=True)
+    makedirs(base / 'templates', exist_ok=True)
 
     for app in apps:
         makedirs(base / app / 'static' / app, exist_ok=True)
